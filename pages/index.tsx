@@ -1,5 +1,3 @@
 export default function Home() {
-  return (
-    <h1>New Sport</h1>
-  );
+  return <h1>New Sport</h1>
 }
