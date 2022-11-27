@@ -1,6 +1,6 @@
 # News Sport
 
-Este es un sitio web sobre todas las noticias y más, sobre la Copa Mundial de la FIFA Catar 2022™.
+Este es un sitio web sobre todas las noticias y más, de la Copa Mundial de la FIFA Catar 2022™.
 
 ## Por que este proyecto?:
 
