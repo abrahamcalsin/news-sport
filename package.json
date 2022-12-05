@@ -17,6 +17,7 @@
     "@chakra-ui/theme-tools": "^2.0.13",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/poppins": "^4.5.10",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
