@@ -11,6 +11,8 @@ import { AllArticlesProps } from '~/typings/components/all-articles'
 import { ArticleProps } from '~/typings/components/article'
 import { LastArticleProps } from '~/typings/components/last-article'
 
+import { Sponsors } from '../sponsors'
+
 export function Content(props: LastArticleProps & Pick<AllArticlesProps, 'allArticles'>) {
   const { lastArticle, allArticles } = props
 
@@ -51,6 +53,7 @@ export function Content(props: LastArticleProps & Pick<AllArticlesProps, 'allArt
           modalContentHosted={selectedArticle.source?.name}
         />
       )}
+      <Sponsors />
     </MainLayout>
   )
 }
