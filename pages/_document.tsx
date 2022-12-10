@@ -6,7 +6,9 @@ import { mainTheme } from '~/themes/main'
 export default function Document() {
   return (
     <Html>
-      <Head />
+      <Head>
+        <title>News Sport</title>
+      </Head>
       <body>
         <ColorModeScript initialColorMode={mainTheme.config.initialColorMode} />
         <Main />
