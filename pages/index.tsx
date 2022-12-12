@@ -1,4 +1,5 @@
 import { Box, Spinner } from '@chakra-ui/react'
+import { GetStaticPropsResult } from 'next'
 
 import { MainLayout } from '~/layouts/main'
 import HomeScreen from '~/screens/home/home'
@@ -24,15 +25,22 @@ export default function Home(props: HomeProps) {
   return <HomeScreen lastArticle={news.articles[0]} allArticles={news.articles} />
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<GetStaticPropsResult<HomeProps>> {
   const response = await fetch(`${process.env.API_ROUTE_URL}/news`, {
     headers: DEFAULT_HEADERS,
   })
   const data = await response.json()
 
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       news: data,
     },
+    revalidate: 10,
   }
 }

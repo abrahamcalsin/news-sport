@@ -3,6 +3,7 @@ import { Box, Heading, Img, Text } from '@chakra-ui/react'
 
 import { DateFormat } from '~/components/date-format'
 import { ArticleProps } from '~/typings/components/article'
+import { dateFormat } from '~/utils'
 
 interface ArticleCardProps {
   title: ArticleProps['title']
@@ -45,7 +46,7 @@ export default function ArticleCard(props: ArticleCardProps) {
           {source?.name}
         </Text>
         <Text as="span">•</Text>
-        <DateFormat date={publishedAt} dateFormat="D MMM, YYYY" locale="es" />
+        <DateFormat date={publishedAt} dateFormat={dateFormat.ES} locale="es" />
       </Text>
     </Box>
   )
