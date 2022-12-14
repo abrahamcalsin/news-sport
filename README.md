@@ -8,6 +8,10 @@ El objetivo de este proyecto es poder participar en el [Hack and Goal](https://w
 
 - Link del diseño en Figma: [News Sport Design - Figma](https://www.figma.com/file/0lynpPOpWjUbHnGD7UdRc7/News-Sport?node-id=305%3A12704&t=c7XzlDD02BJ3nZaa-1)
 
+## Repo a la API Route:
+
+- Link: [News Sport API](https://github.com/abrahamcalsin/news-sport-api)
+
 ## Stacks:
 
 ### News Sport - Client:
