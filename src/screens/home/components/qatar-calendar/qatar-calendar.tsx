@@ -23,9 +23,16 @@ export default function QatarCalendar() {
       </Box>
     )
 
-  const liveGame = filterData(data.results, item => item.properties.Status.select?.name === 'live')
-  const finishedGame = filterData(data.results, item => item.properties.Status.select?.name === 'finished')
-  const comingSoonGame = filterData(data.results, item => item.properties.Status.select?.name === 'coming-soon')
+  const gamesByStatus = {
+    live: filterData(data.results, item => item.properties.Status.select?.name === 'live'),
+    finished: filterData(data.results, item => item.properties.Status.select?.name === 'finished'),
+    'coming-soon': filterData(data.results, item => item.properties.Status.select?.name === 'coming-soon'),
+  }
+
+  const status = gamesByStatus.live.length ? 'live' : gamesByStatus['coming-soon'].length ? 'coming-soon' : 'finished'
+  const game = gamesByStatus[status][0]
+
+  console.log(game)
 
   return (
     <Box
@@ -64,19 +71,23 @@ export default function QatarCalendar() {
         }}
       />
       <Text fontWeight="medium" fontSize="sm" mb="3">
-        {liveGame.length ? (
-          <DateFormat date={liveGame[0].properties.FullDate.date.start} dateFormat={dateFormat.ES} locale="es" />
-        ) : null}
-        {!liveGame.length ? (
+        {gamesByStatus.live.length ? (
           <DateFormat
-            date={comingSoonGame[comingSoonGame.length - 1].properties.FullDate.date.start}
+            date={gamesByStatus.live[0].properties.FullDate.date.start}
+            dateFormat={dateFormat.ES}
+            locale="es"
+          />
+        ) : null}
+        {!gamesByStatus.live.length ? (
+          <DateFormat
+            date={gamesByStatus['coming-soon'][gamesByStatus['coming-soon'].length - 1].properties.FullDate.date.start}
             dateFormat="DD MMMM, YYYY"
             locale="es"
           />
         ) : null}
-        {!liveGame.length && !comingSoonGame.length ? (
+        {!gamesByStatus.live.length && !gamesByStatus['coming-soon'].length ? (
           <DateFormat
-            date={finishedGame[finishedGame.length - 1].properties.FullDate.date.start}
+            date={gamesByStatus.finished[gamesByStatus.finished.length - 1].properties.FullDate.date.start}
             dateFormat={dateFormat.ES}
             locale="es"
           />
@@ -84,8 +95,8 @@ export default function QatarCalendar() {
       </Text>
       <>
         <SoccerMatches
-          conditions={liveGame.length}
-          data={liveGame.slice(0, 2)}
+          conditions={gamesByStatus.live.length}
+          data={gamesByStatus.live.slice(0, 2)}
           renderResultItem={item => (
             <TeamMatch
               key={item.id}
@@ -96,8 +107,8 @@ export default function QatarCalendar() {
           )}
         />
         <SoccerMatches
-          conditions={!liveGame.length}
-          data={comingSoonGame.slice(-2)}
+          conditions={!gamesByStatus.live.length}
+          data={gamesByStatus['coming-soon'].slice(-2)}
           renderResultItem={item => (
             <TeamMatch
               key={item.id}
@@ -108,8 +119,8 @@ export default function QatarCalendar() {
           )}
         />
         <SoccerMatches
-          conditions={!liveGame.length && !comingSoonGame.length}
-          data={finishedGame.slice(0, 2)}
+          conditions={!gamesByStatus.live.length && !gamesByStatus['coming-soon'].length}
+          data={gamesByStatus.finished.slice(0, 2)}
           renderResultItem={item => (
             <TeamMatch
               key={item.id}
@@ -130,20 +141,26 @@ export default function QatarCalendar() {
           }}
         />
         <Text fontWeight="medium" fontSize="sm" mb="3">
-          {!liveGame.length || !comingSoonGame.length ? (
-            <DateFormat date={finishedGame[0].properties.FullDate.date.start} dateFormat="MMMM, YYYY" locale="es" />
-          ) : null}
-          {liveGame.length ? (
+          {!gamesByStatus.live.length || !gamesByStatus['coming-soon'].length ? (
             <DateFormat
-              date={comingSoonGame[comingSoonGame.length - 1].properties.FullDate.date.start}
+              date={gamesByStatus.finished[0].properties.FullDate.date.start}
+              dateFormat="MMMM, YYYY"
+              locale="es"
+            />
+          ) : null}
+          {gamesByStatus.live.length ? (
+            <DateFormat
+              date={
+                gamesByStatus['coming-soon'][gamesByStatus['coming-soon'].length - 1].properties.FullDate.date.start
+              }
               dateFormat={dateFormat.ES}
               locale="es"
             />
           ) : null}
         </Text>
         <SoccerMatches
-          conditions={!liveGame.length || !comingSoonGame.length}
-          data={finishedGame.slice(0, 2)}
+          conditions={!gamesByStatus.live.length || !gamesByStatus['coming-soon'].length}
+          data={gamesByStatus.finished.slice(0, 2)}
           renderResultItem={item => (
             <TeamMatch
               key={item.id}
@@ -154,8 +171,8 @@ export default function QatarCalendar() {
           )}
         />
         <SoccerMatches
-          conditions={liveGame.length}
-          data={comingSoonGame.slice(-1)}
+          conditions={gamesByStatus.live.length}
+          data={gamesByStatus['coming-soon'].slice(-1)}
           renderResultItem={item => (
             <TeamMatch
               key={item.id}
